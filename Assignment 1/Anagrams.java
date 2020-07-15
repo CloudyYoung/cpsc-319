@@ -14,7 +14,26 @@ class Anagrams {
      */
     public static void main(final String[] args) {
 
-        ArrayList<String> list = readListFromFile("example_4--267_words.txt");
+        // The input and output file names
+        String[] inputs = {"example_1--8_words.txt", "example_2--13_words.txt", "example_3--19_words.txt", "example_4--267_words.txt"};
+        String[] outputs = {"example_1_out.txt", "example_2_out.txt", "example_3_out.txt", "example_4_out.txt"};
+
+        int index = 0;
+        for(String file : inputs){
+            ArrayList<String> list = readListFromFile(file);
+            Map<String, ArrayList<String>> map = anagrams(list);
+    
+            String result = "";
+            for (ArrayList<String> each : map.values()) {
+                result += String.join(" ", each) + "\r\n";
+            }
+            writeStringToFile(result, outputs[index]);
+
+            index ++;
+        }
+    }
+
+    public static Map<String, ArrayList<String>> anagrams(ArrayList<String> list) {
         ArrayList<String> sortedList = insertionSort(list);
         Map<String, ArrayList<String>> map = new LinkedHashMap<String, ArrayList<String>>();
 
@@ -29,14 +48,7 @@ class Anagrams {
             map.get(sortedLetter).add(each);
         }
 
-        String result = "";
-        for (ArrayList<String> each : map.values()) {
-            result += String.join(" ", each) + "\r\n";
-        }
-
-        // System.out.println(list);
-        // System.out.println(result);
-        writeStringToFile(result, "example_4_out.txt");
+        return map;
     }
 
     /**
@@ -46,7 +58,7 @@ class Anagrams {
         final ArrayList<String> list = new ArrayList<String>();
 
         try {
-            final File myObj = new File("words/" + fileName);
+            final File myObj = new File(fileName);
             final Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 final String data = myReader.nextLine();
@@ -66,7 +78,7 @@ class Anagrams {
      */
     public static void writeStringToFile(String string, String filename) {
         try {
-            FileWriter myWriter = new FileWriter("words/" + filename);
+            FileWriter myWriter = new FileWriter(filename);
             myWriter.write(string);
             myWriter.close();
         } catch (IOException e) {
@@ -75,27 +87,21 @@ class Anagrams {
         }
     }
 
+    /**
+     * @reference: The introducion of insertion sort from powerpoint "5 - Searching & SORTING - (3) Insertion"
+     * @param list
+     * @return
+     */
     public static ArrayList<String> insertionSort(ArrayList<String> list) {
-        ArrayList<String> sortedList = new ArrayList<String>();
-
+        
+        int sortedIndex = 0;
         for (int t = 0; t < list.size(); t++) {
-            int sortedIndex = sortedList.size();
-            int insertIndex = 0;
-
-            while (sortedIndex > 0) {
-                sortedIndex--;
-                int compare = list.get(t).compareToIgnoreCase(sortedList.get(sortedIndex));
-
-                if (compare > 0) {
-                    insertIndex = sortedIndex + 1;
-                    break;
-                }
-            }
-
-            sortedList.add(insertIndex, list.get(t));
+            
+            
+            sortedIndex ++;
         }
 
-        return sortedList;
+        return list;
     }
 
 }
