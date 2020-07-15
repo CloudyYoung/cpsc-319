@@ -15,21 +15,22 @@ class Anagrams {
     public static void main(final String[] args) {
 
         // The input and output file names
-        String[] inputs = {"example_1--8_words.txt", "example_2--13_words.txt", "example_3--19_words.txt", "example_4--267_words.txt"};
-        String[] outputs = {"example_1_out.txt", "example_2_out.txt", "example_3_out.txt", "example_4_out.txt"};
+        String[] inputs = { "example_1--8_words.txt", "example_2--13_words.txt", "example_3--19_words.txt",
+                "example_4--267_words.txt" };
+        String[] outputs = { "example_1_out.txt", "example_2_out.txt", "example_3_out.txt", "example_4_out.txt" };
 
         int index = 0;
-        for(String file : inputs){
-            ArrayList<String> list = readListFromFile(file);
+        for (String input : inputs) {
+            ArrayList<String> list = readListFromFile(input);
             Map<String, ArrayList<String>> map = anagrams(list);
-    
+
             String result = "";
             for (ArrayList<String> each : map.values()) {
                 result += String.join(" ", each) + "\r\n";
             }
             writeStringToFile(result, outputs[index]);
 
-            index ++;
+            index++;
         }
     }
 
@@ -88,17 +89,23 @@ class Anagrams {
     }
 
     /**
-     * @reference: The introducion of insertion sort from powerpoint "5 - Searching & SORTING - (3) Insertion"
-     * @param list
-     * @return
+     * @reference: The introducion of insertion sort from powerpoint "5 - Searching
+     *             & SORTING - (3) Insertion"
+     * @param list the unsorted list
+     * @return the sorted list
      */
     public static ArrayList<String> insertionSort(ArrayList<String> list) {
-        
-        int sortedIndex = 0;
+
         for (int t = 0; t < list.size(); t++) {
-            
-            
-            sortedIndex ++;
+            String current = list.get(t);
+            int sortedIndex = t - 1;
+
+            while (sortedIndex >= 0 && current.compareToIgnoreCase(list.get(sortedIndex)) < 0) {
+                list.set(sortedIndex + 1, list.get(sortedIndex));
+                sortedIndex--;
+            }
+
+            list.set(sortedIndex + 1, current);
         }
 
         return list;
