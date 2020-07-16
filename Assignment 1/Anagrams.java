@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 class Anagrams {
     /**
+     * Main method as the entrace
      * @reference String into ArrayList:
      *            https://stackoverflow.com/questions/7347856/how-to-convert-a-string-into-an-arraylist
      */
@@ -21,15 +22,9 @@ class Anagrams {
 
         int index = 0;
         for (String input : inputs) {
-            ArrayList<String> list = readListFromFile(input);
-            Map<String, ArrayList<String>> map = anagrams(list);
-
-            String result = "";
-            for (ArrayList<String> each : map.values()) {
-                result += String.join(" ", each) + "\r\n";
-            }
-            writeStringToFile(result, outputs[index]);
-
+            ArrayList<String> list = readListFromFile(input); // Read list from file
+            Map<String, ArrayList<String>> map = anagrams(list); // Run anagrams
+            writeStringToFile(concatenateMap(map), outputs[index]); // Concat to string and write to file
             index++;
         }
     }
@@ -59,13 +54,13 @@ class Anagrams {
         final ArrayList<String> list = new ArrayList<String>();
 
         try {
-            final File myObj = new File(fileName);
-            final Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                final String data = myReader.nextLine();
+            final File file = new File(fileName);
+            final Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                final String data = scanner.nextLine();
                 list.add(data);
             }
-            myReader.close();
+            scanner.close();
         } catch (final IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -100,15 +95,25 @@ class Anagrams {
             String current = list.get(t);
             int sortedIndex = t - 1;
 
+            // Move elements
             while (sortedIndex >= 0 && current.compareToIgnoreCase(list.get(sortedIndex)) < 0) {
                 list.set(sortedIndex + 1, list.get(sortedIndex));
                 sortedIndex--;
             }
 
+            // Insert
             list.set(sortedIndex + 1, current);
         }
 
         return list;
+    }
+
+    public static String concatenateMap(Map<String, ArrayList<String>> map){
+        String result = "";
+        for (ArrayList<String> each : map.values()) {
+            result += String.join(" ", each) + "\r\n";
+        }
+        return result;
     }
 
 }
