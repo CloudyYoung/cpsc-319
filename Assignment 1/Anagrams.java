@@ -7,6 +7,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * @author 
+ * @UCID 
+ * 
+ * CPSC 319 Spring 2020 Assignment 1
+ */
 class Anagrams {
     /**
      * Main method as the entrace
@@ -29,6 +35,10 @@ class Anagrams {
         }
     }
 
+    /**
+     * @param list the list to be solved
+     * @return the solved map
+     */
     public static Map<String, ArrayList<String>> anagrams(ArrayList<String> list) {
         ArrayList<String> sortedList = insertionSort(list);
         Map<String, ArrayList<String>> map = new LinkedHashMap<String, ArrayList<String>>();
@@ -48,6 +58,8 @@ class Anagrams {
     }
 
     /**
+     * @param fileName the name of the file
+     * @return the file content in string
      * @reference Read Files: https://www.w3schools.com/java/java_files_read.asp
      */
     public static ArrayList<String> readListFromFile(String fileName) {
@@ -70,6 +82,8 @@ class Anagrams {
     }
 
     /**
+     * @param string the content to be written as string
+     * @param fileName the name of the file
      * @reference Write Files: https://www.w3schools.com/java/java_files_create.asp
      */
     public static void writeStringToFile(String string, String filename) {
@@ -84,10 +98,10 @@ class Anagrams {
     }
 
     /**
-     * @reference: The introducion of insertion sort from powerpoint "5 - Searching
-     *             & SORTING - (3) Insertion"
      * @param list the unsorted list
      * @return the sorted list
+     * @reference: The introducion of insertion sort from powerpoint "5 - Searching
+     *             & SORTING - (3) Insertion"
      */
     public static ArrayList<String> insertionSort(ArrayList<String> list) {
 
@@ -108,6 +122,10 @@ class Anagrams {
         return list;
     }
 
+    /**
+     * @param map the solved map
+     * @return the concatenated string
+     */
     public static String concatenateMap(Map<String, ArrayList<String>> map){
         String result = "";
         for (ArrayList<String> each : map.values()) {
