@@ -8,9 +8,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * @author 
- * @UCID 
- * 
  * CPSC 319 Spring 2020 Assignment 1
  */
 class Anagrams {
@@ -28,9 +25,9 @@ class Anagrams {
 
         int index = 0;
         for (String input : inputs) {
-            ArrayList<String> list = readListFromFile(input); // Read list from file
+            ArrayList<String> list = readListFromFile(input); // Read list from file; this is Step #1 in Assignment PDF, unsorted 1-D array read from file
             Map<String, ArrayList<String>> map = anagrams(list); // Run anagrams
-            writeStringToFile(concatenateMap(map), outputs[index]); // Concat to string and write to file
+            writeStringToFile(concatenateMap(map), outputs[index]); // Concat to string and write to file; this is Step #3 generating the required output text
             index++;
         }
     }
@@ -40,18 +37,22 @@ class Anagrams {
      * @return the solved map
      */
     public static Map<String, ArrayList<String>> anagrams(ArrayList<String> list) {
-        ArrayList<String> sortedList = insertionSort(list);
+        ArrayList<String> sortedList = insertionSort(list); // This is Step #2, sorted 1-D array
+
         Map<String, ArrayList<String>> map = new LinkedHashMap<String, ArrayList<String>>();
 
         for (String each : sortedList) {
-            ArrayList<String> stringList = new ArrayList<String>(Arrays.asList(each.split("")));
-            String sortedLetter = String.join("", insertionSort(stringList));
+            ArrayList<String> stringList = new ArrayList<String>(Arrays.asList(each.split(""))); // Split each letter and store into an array list
+            String sortedLetter = String.join("", insertionSort(stringList)); // Sort the letters
 
-            if (!map.containsKey(sortedLetter)) {
-                map.put(sortedLetter, new ArrayList<String>());
+            // According to sorted 'word', add to its own family in map, just like the approach given in the assignment PDF
+            // Eg. "ate" and "eat" will both be sorted into "aet", and they are both stored into the map as "aet": ["ate", "eat"], where "aet" is the family 'word' and key in map, ["ate", "eat"] are the members and values in map
+
+            if (!map.containsKey(sortedLetter)) { // If the family 'word' does not exist
+                map.put(sortedLetter, new ArrayList<String>()); // Add one
             }
 
-            map.get(sortedLetter).add(each);
+            map.get(sortedLetter).add(each); // Add the word itself to its family
         }
 
         return map;
