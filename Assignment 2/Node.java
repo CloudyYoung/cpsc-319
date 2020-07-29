@@ -50,10 +50,9 @@ public class Node {
     private String print(String prepend, boolean right){
         String string = "";
         boolean isStart = prepend.equals("");
-        String nextLeftPrepend = (right || isStart ? "      " : "│     ");
-        String nextRightPrepend = (!right || isStart ? "      " : "│     ");
-        String sign = (right ? "┌───" : "└───");
-
+        String nextLeftPrepend = (right || isStart) ? "      " : "│     ";
+        String nextRightPrepend = (!right || isStart) ? "      " : "│     ";
+        String sign = right ? "┌───" : "└───";
 
         if (this.right != null) {
             string += this.right.print(prepend + nextLeftPrepend, true);
@@ -64,6 +63,7 @@ public class Node {
         if (this.left != null) {
             string += this.left.print(prepend + nextRightPrepend, false);
         }
+
         return string;
     }
 
