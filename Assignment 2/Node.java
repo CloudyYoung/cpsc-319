@@ -1,18 +1,18 @@
 
 public class Node {
 
-    private String word;
+    private String value;
     private int frequency;
     private Node left;
     private Node right;
 
-    public Node(String word){
-        this.word = word;
+    public Node(String value){
+        this.value = value;
         this.frequency = 1;
     }
 
-    public String getWord(){
-        return this.word;
+    public String getValue(){
+        return this.value;
     }
 
     public int getFrequency(){
@@ -41,13 +41,13 @@ public class Node {
 
     @Override
     public String toString(){
-        return this.print("", false);
+        return this.value + " (" + this.frequency + ")";
     }
 
     /**
      * @reference: https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram
      */
-    private String print(String prepend, boolean right){
+    public String print(String prepend, boolean right){
         String string = "";
         boolean isStart = prepend.equals("");
         String nextLeftPrepend = (right || isStart) ? "      " : "│     ";
@@ -58,7 +58,7 @@ public class Node {
             string += this.right.print(prepend + nextLeftPrepend, true);
         }
 
-        string += prepend + (isStart ? "   " : sign) + " " + this.word + " (" + this.frequency + ")\n";
+        string += prepend + (isStart ? "   " : sign) + " " + this.value + " (" + this.frequency + ")\n";
 
         if (this.left != null) {
             string += this.left.print(prepend + nextRightPrepend, false);
