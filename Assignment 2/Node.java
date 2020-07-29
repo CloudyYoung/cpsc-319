@@ -49,15 +49,20 @@ public class Node {
      */
     private String print(String prepend, boolean right){
         String string = "";
+        boolean isStart = prepend.equals("");
+        String nextLeftPrepend = (right || isStart ? "      " : "│     ");
+        String nextRightPrepend = (!right || isStart ? "      " : "│     ");
+        String sign = (right ? "┌───" : "└───");
+
 
         if (this.right != null) {
-            string += this.right.print(prepend + (right ? "      " : "│     "), true);
+            string += this.right.print(prepend + nextLeftPrepend, true);
         }
 
-        string += prepend + (right ? "┌───" : "└───") + " " + this.word + " (" + this.frequency + ")\n";
+        string += prepend + (isStart ? "" : sign) + " " + this.word + " (" + this.frequency + ")\n";
 
         if (this.left != null) {
-            string += this.left.print(prepend + (right ? "│     " : "      "), false);
+            string += this.left.print(prepend + nextRightPrepend, false);
         }
         return string;
     }
