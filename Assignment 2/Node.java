@@ -41,20 +41,23 @@ public class Node {
 
     @Override
     public String toString(){
-        return this.print(0, "");
+        return this.print("", false);
     }
 
-    private String print(int level, String sign){
+    /**
+     * @reference: https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram
+     */
+    private String print(String prepend, boolean right){
         String string = "";
 
         if (this.right != null) {
-            string += this.right.print(level + 1, "┌───");
+            string += this.right.print(prepend + (right ? "      " : "│     "), true);
         }
 
-        string += "     ".repeat(level) + sign + " " + this.word + " (" + this.frequency + ")\n";
+        string += prepend + (right ? "┌───" : "└───") + " " + this.word + " (" + this.frequency + ")\n";
 
         if (this.left != null) {
-            string += this.left.print(level + 1, "└───");
+            string += this.left.print(prepend + (right ? "│     " : "      "), false);
         }
         return string;
     }
