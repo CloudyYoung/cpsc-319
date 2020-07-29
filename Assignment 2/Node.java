@@ -58,7 +58,7 @@ public class Node {
             string += this.right.print(prepend + nextLeftPrepend, true);
         }
 
-        string += prepend + (isStart ? "" : sign) + " " + this.word + " (" + this.frequency + ")\n";
+        string += prepend + (isStart ? "   " : sign) + " " + this.word + " (" + this.frequency + ")\n";
 
         if (this.left != null) {
             string += this.left.print(prepend + nextRightPrepend, false);
