@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Traversal {
 
@@ -35,15 +36,16 @@ public class Traversal {
     public static final int POST_ORDER = 2;
 
     
-    private ArrayList<TravNode> path;           // The path of traversal, stores TravNode objects
+    private Stack<TravNode> path;               // The path of traversal, stores TravNode objects
     private int mode;                           // Traversal mode
+    private Node next;                      // Store next node
 
     /**
      * @param node the root node of a binary tree
      * @param mode the traversal mode, acceptable values are: PRE_ORDER, IN_ORDER, and POST_ORDER
      */
     public Traversal(Node node, int mode){
-        this.path = new ArrayList<TravNode>();  // Initialize path
+        this.path = new Stack<TravNode>();  // Initialize path
         this.path.add(new TravNode(node));      // Initialize the path with root node
         this.mode = mode;
     }
@@ -84,7 +86,7 @@ public class Traversal {
     }
 
     /**
-     * Inspired by Python generator, 
+     * Inspired by the Python generator, 
      * this method return the next node in the binary tree each time it is invoked, 
      * instead of traverse the whole tree each time.
      * It stores the path of traversal, and restore the path direcly to get next node.
@@ -92,10 +94,14 @@ public class Traversal {
      * @return the next node
      */
     public Node next(){
-        if(this.path.size() <= 0){
+        if(this.path.empty()){
             return null;
+        }else if(this.next != null){
+            Node next = this.next;
+            this.next = null;
+            return next;
         }else{
-            TravNode travNode = this.next(this.path.get(this.path.size() - 1));
+            TravNode travNode = this.next(this.path.peek());
             return travNode == null ? null : new Node(travNode); // Degrade TraveNode to Node object
         }
     }
@@ -123,7 +129,7 @@ public class Traversal {
 
                 t = travNode.addStep();
                 TravNode left = new TravNode(travNode.getLeftNode());  // Create new travNode instance for child node
-                this.path.add(left);                                   // Add to path
+                this.path.push(left);                                   // Add to path
                 return this.next(left);                                // Recursion
             } else if (travNode.hasRightNode() &&               // If node has right child node
                       ((t == 3 && this.mode == PRE_ORDER)       // Step 3 for Pre-order
@@ -132,16 +138,21 @@ public class Traversal {
 
                 t = travNode.addStep();
                 TravNode right = new TravNode(travNode.getRightNode()); // Create new travNode instance for child node
-                this.path.add(right);                                   // Add to path
+                this.path.push(right);                                   // Add to path
                 return this.next(right);                                // Recursion
             }
         }
         
-        this.path.remove(travNode); // Finish steps, remove the node from path
-        if (this.path.size() > 0) { // If has nodes in path, then recursion next node in the path
-            return this.next(this.path.get(this.path.size() - 1));
+        this.path.pop(); // Finish steps, remove the node from path
+        if (!this.path.empty()) { // If has nodes in path, then recursion next node in the path
+            return this.next(this.path.peek());
         }
         return null;
+    }
+
+    public boolean hasNext(){
+        this.next = this.next();
+        return !this.path.empty();
     }
     
 }

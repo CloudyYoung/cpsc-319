@@ -91,22 +91,10 @@ public class BinaryTree {
 
     private ArrayList<Node> traversal(Node node, int mode){
         ArrayList<Node> list = new ArrayList<Node>();
-        if(node != null){
-            for (int t = 0; t < 3; t++) {
-                if (       (t == 0 && mode == Traversal.PRE_ORDER) 
-                        || (t == 1 && mode == Traversal.IN_ORDER) 
-                        || (t == 2 && mode == Traversal.POST_ORDER)) {
-                    list.add(node); // Visit the node
-                } else if ((t == 1 && mode == Traversal.PRE_ORDER)
-                        || (t == 0 && mode == Traversal.IN_ORDER)
-                        || (t == 0 && mode == Traversal.POST_ORDER)) {
-                    list.addAll(this.traversal(node.getLeftNode(), mode)); // Visit left child node
-                } else if ((t == 2 && mode == Traversal.PRE_ORDER) 
-                        || (t == 2 && mode == Traversal.IN_ORDER)
-                        || (t == 1 && mode == Traversal.POST_ORDER)) {
-                    list.addAll(this.traversal(node.getRightNode(), mode)); // Visit right child node
-                }
-            }
+        
+        Traversal trav = new Traversal(this, mode);
+        while(trav.hasNext()){
+            list.add(trav.next());
         }
         return list;
     }

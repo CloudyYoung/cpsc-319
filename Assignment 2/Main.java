@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String[] args){
-        ArrayList<String> list = readListFromFile("text1.txt");
+        ArrayList<String> list = readListFromFile("text2.txt");
         BinaryTree binaryTree = new BinaryTree(list);
         System.out.println(binaryTree);
         // System.out.println(binaryTree.getTotalNodes());
