@@ -8,10 +8,6 @@ public class BinaryTree {
     private int totalNodes;
     private int highestFrequency;
 
-    private static final int PRE_ORDER = 0;
-    private static final int IN_ORDER = 1;
-    private static final int POST_ORDER = 2;
-
     public BinaryTree(ArrayList<String> list){
         this.makeTree(list);
     }
@@ -82,32 +78,32 @@ public class BinaryTree {
     }
 
     public ArrayList<Node> preOrder(){
-        return this.traversal(this.root, PRE_ORDER);
+        return this.traversal(this.root, Traversal.PRE_ORDER);
     }
 
     public ArrayList<Node> inOrder() {
-        return this.traversal(this.root, IN_ORDER);
+        return this.traversal(this.root, Traversal.IN_ORDER);
     }
 
     public ArrayList<Node> postOrder() {
-        return this.traversal(this.root, POST_ORDER);
+        return this.traversal(this.root, Traversal.POST_ORDER);
     }
 
     private ArrayList<Node> traversal(Node node, int mode){
         ArrayList<Node> list = new ArrayList<Node>();
         if(node != null){
             for (int t = 0; t < 3; t++) {
-                if (       (t == 0 && mode == PRE_ORDER) 
-                        || (t == 1 && mode == IN_ORDER) 
-                        || (t == 2 && mode == POST_ORDER)) {
+                if (       (t == 0 && mode == Traversal.PRE_ORDER) 
+                        || (t == 1 && mode == Traversal.IN_ORDER) 
+                        || (t == 2 && mode == Traversal.POST_ORDER)) {
                     list.add(node); // Visit the node
-                } else if ((t == 1 && mode == PRE_ORDER)
-                        || (t == 0 && mode == IN_ORDER)
-                        || (t == 0 && mode == POST_ORDER)) {
+                } else if ((t == 1 && mode == Traversal.PRE_ORDER)
+                        || (t == 0 && mode == Traversal.IN_ORDER)
+                        || (t == 0 && mode == Traversal.POST_ORDER)) {
                     list.addAll(this.traversal(node.getLeftNode(), mode)); // Visit left child node
-                } else if ((t == 2 && mode == PRE_ORDER) 
-                        || (t == 2 && mode == IN_ORDER)
-                        || (t == 1 && mode == POST_ORDER)) {
+                } else if ((t == 2 && mode == Traversal.PRE_ORDER) 
+                        || (t == 2 && mode == Traversal.IN_ORDER)
+                        || (t == 1 && mode == Traversal.POST_ORDER)) {
                     list.addAll(this.traversal(node.getRightNode(), mode)); // Visit right child node
                 }
             }
