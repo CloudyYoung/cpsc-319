@@ -52,10 +52,6 @@ public class BinaryTree {
         }
     }
 
-    public void countTree(){
-        
-    }
-
     @Override
     public String toString(){
         return this.root.print();
@@ -97,6 +93,13 @@ public class BinaryTree {
             list.add(trav.next());
         }
         return list;
+    }
+
+    public void statistics(){
+        Traversal trav = new Traversal(this, Traversal.IN_ORDER);
+        while (trav.hasNext()) {
+            trav.next();
+        }
     }
 
 }

@@ -38,14 +38,14 @@ public class Traversal {
     
     private Stack<TravNode> path;               // The path of traversal, stores TravNode objects
     private int mode;                           // Traversal mode
-    private Node next;                      // Store next node
+    private Node next;                          // Store next node
 
     /**
      * @param node the root node of a binary tree
      * @param mode the traversal mode, acceptable values are: PRE_ORDER, IN_ORDER, and POST_ORDER
      */
     public Traversal(Node node, int mode){
-        this.path = new Stack<TravNode>();  // Initialize path
+        this.path = new Stack<TravNode>();      // Initialize path
         this.path.add(new TravNode(node));      // Initialize the path with root node
         this.mode = mode;
     }
@@ -117,35 +117,35 @@ public class Traversal {
         // t is equal to travNode.getStep() all the time
         for (int t = travNode.getStep(); t <= 3; t = travNode.addStep()){ 
 
-            if (       (t == 1 && this.mode == PRE_ORDER)       // Step 1 for Pre-order, if node itself
-                    || (t == 2 && this.mode == IN_ORDER)        // Step 2 for In-order
-                    || (t == 3 && this.mode == POST_ORDER)) {   // Step 3 for Post-order
+            if (       (t == 1 && this.mode == PRE_ORDER)               // Step 1 for Pre-order, if node itself
+                    || (t == 2 && this.mode == IN_ORDER)                // Step 2 for In-order
+                    || (t == 3 && this.mode == POST_ORDER)) {           // Step 3 for Post-order
                 t = travNode.addStep();
-                return travNode;                                // Return the node
-            } else if (travNode.hasLeftNode() &&                // If node has left child node
-                      ((t == 2 && this.mode == PRE_ORDER)       // Step 2 for Pre-order
-                    || (t == 1 && this.mode == IN_ORDER)        // Step 1 for In-order
-                    || (t == 1 && this.mode == POST_ORDER))) {  // Step 1 for Post-order
+                return travNode;                                        // Return the node
+            } else if (travNode.hasLeftNode() &&                        // If node has left child node
+                      ((t == 2 && this.mode == PRE_ORDER)               // Step 2 for Pre-order
+                    || (t == 1 && this.mode == IN_ORDER)                // Step 1 for In-order
+                    || (t == 1 && this.mode == POST_ORDER))) {          // Step 1 for Post-order
 
                 t = travNode.addStep();
-                TravNode left = new TravNode(travNode.getLeftNode());  // Create new travNode instance for child node
+                TravNode left = new TravNode(travNode.getLeftNode());   // Create new travNode instance for child node
                 this.path.push(left);                                   // Add to path
-                return this.next(left);                                // Recursion
-            } else if (travNode.hasRightNode() &&               // If node has right child node
-                      ((t == 3 && this.mode == PRE_ORDER)       // Step 3 for Pre-order
-                    || (t == 3 && this.mode == IN_ORDER)        // Step 3 for In-order
-                    || (t == 2 && this.mode == POST_ORDER))) {  // Step 2 for Post-order
+                return this.next(left);                                 // Recursion
+            } else if (travNode.hasRightNode() &&                       // If node has right child node
+                      ((t == 3 && this.mode == PRE_ORDER)               // Step 3 for Pre-order
+                    || (t == 3 && this.mode == IN_ORDER)                // Step 3 for In-order
+                    || (t == 2 && this.mode == POST_ORDER))) {          // Step 2 for Post-order
 
                 t = travNode.addStep();
                 TravNode right = new TravNode(travNode.getRightNode()); // Create new travNode instance for child node
-                this.path.push(right);                                   // Add to path
+                this.path.push(right);                                  // Add to path
                 return this.next(right);                                // Recursion
             }
         }
         
-        this.path.pop(); // Finish steps, remove the node from path
-        if (!this.path.empty()) { // If has nodes in path, then recursion next node in the path
-            return this.next(this.path.peek());
+        this.path.pop();                        // Finish steps, remove the node from path
+        if (!this.path.empty()) {               // If has nodes in path, then recursion next node in the path
+            return this.next(this.path.peek()); // Conitnue second last node
         }
         return null;
     }
