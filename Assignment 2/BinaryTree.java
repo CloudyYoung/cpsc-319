@@ -8,71 +8,61 @@ public class BinaryTree {
     private int totalNodes;
     private int highestFrequency;
 
+    private static final int PRE_ORDER = 0;
+    private static final int IN_ORDER = 1;
+    private static final int POST_ORDER = 2;
+
     public BinaryTree(ArrayList<String> list){
         this.makeTree(list);
     }
 
     private void makeTree(ArrayList<String> list){
-        this.uniqueNodes = 0;
-        this.totalNodes = list.size();
-        this.highestFrequency = 0;
 
         for(String word : list){
             Node current = root;
-
 
             if (root == null) {
                 
                 root = new Node(word);
                 current = root;
-                this.uniqueNodes++;
 
             }else{
 
                 boolean isPlaced = false;
-
                 while(!isPlaced){
-                    int compare = word.compareToIgnoreCase(current.getValue());
 
                     if(word.equals(current.getValue())){ // Find existing word node
                         current.addFrequency();
                         isPlaced = true;
                     }else{ // If not finding
-                        if(compare < 0 && current.getRightNode() != null){ // Continue to right child
+                        int compare = word.compareToIgnoreCase(current.getValue()); // Compare words
+
+                        if (compare > 0 && current.hasRightNode()){ // Continue to right child
                             current = current.getRightNode();
-                        }else if(compare > 0 && current.getLeftNode() != null){ // Continue to left child
+                        }else if(compare < 0 && current.hasLeftNode()){ // Continue to left child
                             current = current.getLeftNode();
                         }else{
                             Node newNode = new Node(word); // Word node is not existing, create new node
-                            this.uniqueNodes++;
-
-                            if (compare < 0) {
+                            if (compare > 0) {
                                 current.setRightNode(newNode);
                             } else {
                                 current.setLeftNode(newNode);
                             }
-
                             isPlaced = true;
                         }
                     }
                 }
             }
-
-            // Handle most frequency words
-            if (current.getFrequency() > this.highestFrequency) {
-                this.highestFrequency = current.getFrequency();
-                this.mostFrequentNodes = new ArrayList<Node>(); // Clear array
-                this.mostFrequentNodes.add(current); // Add to array
-            } else if (current.getFrequency() == this.highestFrequency && !this.mostFrequentNodes.contains(current)) { // If the word has the same frequency with the highest, and not in the array
-                this.mostFrequentNodes.add(current); // Add to array
-            }
-
         }
+    }
+
+    public void countTree(){
+        
     }
 
     @Override
     public String toString(){
-        return this.root.print("", false);
+        return this.root.print();
     }
 
     public int getTotalNodes(){
@@ -83,8 +73,46 @@ public class BinaryTree {
         return this.uniqueNodes;
     }
 
+    public Node getRoot(){
+        return this.root;
+    }
+
     public ArrayList<Node> getMostFrequentNodes(){
         return new ArrayList<Node>(this.mostFrequentNodes);
+    }
+
+    public ArrayList<Node> preOrder(){
+        return this.traversal(this.root, PRE_ORDER);
+    }
+
+    public ArrayList<Node> inOrder() {
+        return this.traversal(this.root, IN_ORDER);
+    }
+
+    public ArrayList<Node> postOrder() {
+        return this.traversal(this.root, POST_ORDER);
+    }
+
+    private ArrayList<Node> traversal(Node node, int mode){
+        ArrayList<Node> list = new ArrayList<Node>();
+        if(node != null){
+            for (int t = 0; t < 3; t++) {
+                if (       (t == 0 && mode == PRE_ORDER) 
+                        || (t == 1 && mode == IN_ORDER) 
+                        || (t == 2 && mode == POST_ORDER)) {
+                    list.add(node); // Visit the node
+                } else if ((t == 1 && mode == PRE_ORDER)
+                        || (t == 0 && mode == IN_ORDER)
+                        || (t == 0 && mode == POST_ORDER)) {
+                    list.addAll(this.traversal(node.getLeftNode(), mode)); // Visit left child node
+                } else if ((t == 2 && mode == PRE_ORDER) 
+                        || (t == 2 && mode == IN_ORDER)
+                        || (t == 1 && mode == POST_ORDER)) {
+                    list.addAll(this.traversal(node.getRightNode(), mode)); // Visit right child node
+                }
+            }
+        }
+        return list;
     }
 
 }

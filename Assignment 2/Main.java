@@ -11,9 +11,13 @@ public class Main {
         ArrayList<String> list = readListFromFile("text1.txt");
         BinaryTree binaryTree = new BinaryTree(list);
         System.out.println(binaryTree);
-        System.out.println(binaryTree.getTotalNodes());
-        System.out.println(binaryTree.getUniqueNodes());
-        System.out.println(binaryTree.getMostFrequentNodes());
+        // System.out.println(binaryTree.getTotalNodes());
+        // System.out.println(binaryTree.getUniqueNodes());
+        // System.out.println(binaryTree.getMostFrequentNodes());
+        System.out.println(binaryTree.preOrder());
+        System.out.println(binaryTree.inOrder());
+        System.out.println(binaryTree.postOrder());
+
     }
 
     /**

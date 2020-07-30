@@ -11,6 +11,13 @@ public class Node {
         this.frequency = 1;
     }
 
+    public Node(Node node){
+        this.value = node.value;
+        this.frequency = node.frequency;
+        this.left = node.left;
+        this.right = node.right;
+    }
+
     public String getValue(){
         return this.value;
     }
@@ -25,6 +32,14 @@ public class Node {
 
     public Node getRightNode(){
         return this.right;
+    }
+
+    public boolean hasLeftNode(){
+        return this.left != null;
+    }
+
+    public boolean hasRightNode() {
+        return this.right != null;
     }
 
     public void setLeftNode(Node predecessor){
@@ -44,10 +59,14 @@ public class Node {
         return this.value + " (" + this.frequency + ")";
     }
 
+    public String print() {
+        return this.print("", false);
+    }
+
     /**
      * @reference: https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram
      */
-    public String print(String prepend, boolean right){
+    private String print(String prepend, boolean right){
         String string = "";
         boolean isStart = prepend.equals("");
         String nextLeftPrepend = (right || isStart) ? "      " : "│     ";
