@@ -9,10 +9,11 @@ public class BinaryTree {
     private int highestFrequency;
 
     public BinaryTree(ArrayList<String> list){
-        this.makeTree(list);
+        this.construct(list);
+        this.statistics();
     }
 
-    private void makeTree(ArrayList<String> list){
+    private void construct(ArrayList<String> list){
 
         for(String word : list){
             Node current = root;
@@ -95,10 +96,23 @@ public class BinaryTree {
         return list;
     }
 
-    public void statistics(){
+    private void statistics(){
         Traversal trav = new Traversal(this, Traversal.IN_ORDER);
+        this.mostFrequentNodes = new ArrayList<Node>();
+        
         while (trav.hasNext()) {
-            trav.next();
+            Node node = trav.next();
+            this.totalNodes++;
+
+            if(node.getFrequency() == 1){
+                this.uniqueNodes ++;
+            }else if(node.getFrequency() > this.highestFrequency){
+                this.highestFrequency = node.getFrequency();
+                this.mostFrequentNodes.clear();
+                this.mostFrequentNodes.add(node);
+            }else if(node.getFrequency() == this.highestFrequency){
+                this.mostFrequentNodes.add(node);
+            }
         }
     }
 
