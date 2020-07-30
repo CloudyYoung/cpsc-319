@@ -3,6 +3,11 @@ import java.util.HashMap;
 
 public class Traversal {
 
+    /**
+     * TraveNode class for Traversal
+     * The only difference from Node class is it contains an extra attribute: step 
+     * this.step represents the traversing step in this.next() method
+     */
     private class TravNode extends Node{
         private int step;
 
@@ -30,13 +35,27 @@ public class Traversal {
     private static final int IN_ORDER = 1;
     private static final int POST_ORDER = 2;
 
-    private ArrayList<TravNode> path;
-    private int mode;
+    
+    private ArrayList<TravNode> path;           // The path of traversal, stores TravNode objects
+    private int mode;                           // Traversal mode
 
+    /**
+     * @param node the root node of a binary tree
+     * @param mode the traversal mode, acceptable values are: PRE_ORDER, IN_ORDER, and POST_ORDER
+     */
     public Traversal(Node node, int mode){
-        this.path = new ArrayList<TravNode>();
-        this.path.add(new TravNode(node));
+        this.path = new ArrayList<TravNode>();  // Initialize path
+        this.path.add(new TravNode(node));      // Initialize the path with root node
         this.mode = mode;
+    }
+
+    /**
+     * @param tree a binary tree
+     * @param mode the traversal mode, acceptable values are: PRE_ORDER, IN_ORDER,
+     *             and POST_ORDER
+     */
+    public Traversal(BinaryTree tree, int mode){
+        this(tree.getRoot(), mode);
     }
 
     public static void main(String[] args){
@@ -47,12 +66,14 @@ public class Traversal {
         list.add("Doing");
         list.add("Great");
         list.add("Babay");
+        list.add("Babay");
         list.add("Orders");
         list.add("Cathy");
         BinaryTree tree = new BinaryTree(list);
         System.out.println(tree);
         System.out.println(tree.postOrder());
-        Traversal trav = new Traversal(tree.getRoot(), Traversal.POST_ORDER);
+        Traversal trav = new Traversal(tree, Traversal.POST_ORDER);
+        System.out.println(trav.next());
         System.out.println(trav.next());
         System.out.println(trav.next());
         System.out.println(trav.next());
@@ -63,51 +84,62 @@ public class Traversal {
         System.out.println(trav.next());
     }
 
+    /**
+     * Inspired by Python generator, 
+     * this method return the next node in the binary tree each time it is invoked, 
+     * instead of traverse the whole tree each time.
+     * It stores the path of traversal, and restore the path direcly to get next node.
+     * Return null if no more node can be traversed
+     * @return the next node
+     */
     public Node next(){
         if(this.path.size() <= 0){
             return null;
         }else{
-            // System.out.println(this.path);
             TravNode travNode = this.next(this.path.get(this.path.size() - 1));
-            return travNode == null ? null : new Node(travNode);
+            return travNode == null ? null : new Node(travNode); // Degrade TraveNode to Node object
         }
     }
 
+    /**
+     * @param travNode the travNode for recursion
+     * @return the next travNode object
+     */
     private TravNode next(TravNode travNode){
 
-        for (int t = travNode.getStep(); t <= 3; t = travNode.addStep()){
+        // Each loop is a step, total 3 steps
+        // Steps are from 1 to 3, according to traversal mode, actions are made in different order
+        // t is equal to travNode.getStep() all the time
+        for (int t = travNode.getStep(); t <= 3; t = travNode.addStep()){ 
 
-            travNode.getStep();
-            // System.out.println(this.path);
-
-            if (       (t == 1 && this.mode == PRE_ORDER)
-                    || (t == 2 && this.mode == IN_ORDER)
-                    || (t == 3 && this.mode == POST_ORDER)) {
+            if (       (t == 1 && this.mode == PRE_ORDER)       // Step 1 for Pre-order, if node itself
+                    || (t == 2 && this.mode == IN_ORDER)        // Step 2 for In-order
+                    || (t == 3 && this.mode == POST_ORDER)) {   // Step 3 for Post-order
                 t = travNode.addStep();
-                return travNode; // The node
-            } else if (travNode.hasLeftNode() && 
-                      ((t == 2 && this.mode == PRE_ORDER)
-                    || (t == 1 && this.mode == IN_ORDER) 
-                    || (t == 1 && this.mode == POST_ORDER))) {
-
-                t = travNode.addStep();
-                TravNode left = new TravNode(travNode.getLeftNode());
-                this.path.add(left);
-                return this.next(left);
-            } else if (travNode.hasRightNode() && 
-                      ((t == 3 && this.mode == PRE_ORDER)
-                    || (t == 3 && this.mode == IN_ORDER) 
-                    || (t == 2 && this.mode == POST_ORDER))) {
+                return travNode;                                // Return the node
+            } else if (travNode.hasLeftNode() &&                // If node has left child node
+                      ((t == 2 && this.mode == PRE_ORDER)       // Step 2 for Pre-order
+                    || (t == 1 && this.mode == IN_ORDER)        // Step 1 for In-order
+                    || (t == 1 && this.mode == POST_ORDER))) {  // Step 1 for Post-order
 
                 t = travNode.addStep();
-                TravNode right = new TravNode(travNode.getRightNode());
-                this.path.add(right);
-                return this.next(right);
+                TravNode left = new TravNode(travNode.getLeftNode());  // Create new travNode instance for child node
+                this.path.add(left);                                   // Add to path
+                return this.next(left);                                // Recursion
+            } else if (travNode.hasRightNode() &&               // If node has right child node
+                      ((t == 3 && this.mode == PRE_ORDER)       // Step 3 for Pre-order
+                    || (t == 3 && this.mode == IN_ORDER)        // Step 3 for In-order
+                    || (t == 2 && this.mode == POST_ORDER))) {  // Step 2 for Post-order
+
+                t = travNode.addStep();
+                TravNode right = new TravNode(travNode.getRightNode()); // Create new travNode instance for child node
+                this.path.add(right);                                   // Add to path
+                return this.next(right);                                // Recursion
             }
         }
         
-        this.path.remove(this.path.size() - 1);
-        if (this.path.size() > 0) {
+        this.path.remove(travNode); // Finish steps, remove the node from path
+        if (this.path.size() > 0) { // If has nodes in path, then recursion next node in the path
             return this.next(this.path.get(this.path.size() - 1));
         }
         return null;
