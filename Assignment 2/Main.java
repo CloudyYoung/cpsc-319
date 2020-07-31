@@ -14,13 +14,14 @@ public class Main {
         System.out.println(binaryTree.getTotalNodes());
         System.out.println(binaryTree.getUniqueNodes());
         System.out.println(binaryTree.getMostFrequentNodes());
-        // System.out.println(binaryTree.preOrder());
-        // System.out.println(binaryTree.inOrder());
-        // System.out.println(binaryTree.postOrder());
+        System.out.println(binaryTree.search("test"));
+        System.out.println(binaryTree.preOrder());
+        System.out.println(binaryTree.inOrder());
+        System.out.println(binaryTree.postOrder());
 
     }
 
-    /**
+    /**222222222222222222
      * @param fileName the name of the file
      * @return all words in the file in string
      * @reference Read Files: https://www.w3schools.com/java/java_files_read.asp

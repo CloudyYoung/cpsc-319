@@ -99,7 +99,7 @@ public class BinaryTree {
     private void statistics(){
         Traversal trav = new Traversal(this, Traversal.IN_ORDER);
         this.mostFrequentNodes = new ArrayList<Node>();
-        
+
         while (trav.hasNext()) {
             Node node = trav.next();
             this.totalNodes++;
@@ -114,6 +114,17 @@ public class BinaryTree {
                 this.mostFrequentNodes.add(node);
             }
         }
+    }
+
+    public Node search(String value){
+        Traversal trav = new Traversal(this, Traversal.IN_ORDER);
+        while (trav.hasNext()) {
+            Node node = trav.next();
+            if(node.getValue().equalsIgnoreCase(value)){
+                return node;
+            }
+        }
+        return null;
     }
 
 }
