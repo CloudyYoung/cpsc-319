@@ -9,11 +9,14 @@ public class BinaryTree {
     private int highestFrequency;
 
     public BinaryTree(ArrayList<String> list){
-        this.construct(list);
+        this.structure(list);
         this.statistics();
     }
 
-    private void construct(ArrayList<String> list){
+    /**
+     * Construct the binary tree by given list of values
+     */
+    private void structure(ArrayList<String> list){
 
         for(String word : list){
             Node current = root;
