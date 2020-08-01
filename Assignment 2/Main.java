@@ -41,11 +41,15 @@ public class Main {
 
         while (true) {
 
-            if (next != null && next.equals("next")) { // If want to continue to next function
-                step++;
+            if (next != null && next.equals("!find") && !file.isEmpty()) { // If want to move on to next function
+                step = 1;
                 next = null; // Clear user input
 
-            } else if (next != null && next.equals("end")) { // If want to end program
+            } else if (next != null && next.equals("!trav") && !file.isEmpty()) { // If want to move on to next function
+                step = 2;
+                next = null; // Clear user input
+
+            } else if (next != null && next.equals("!end")) { // If want to end program
                 break;
 
             } else if (step == 0 && next == null) { // Print tree structure and statistics
@@ -54,7 +58,7 @@ public class Main {
                 next = next(scan);
 
             } else if (step == 0 && next != null) { // Print tree structure and statistics
-                ArrayList<String> list = readListFromFile(next);
+                ArrayList<String> list = readListFromFile(next + ".txt");
                 file = next;
                 if (!list.isEmpty()) {
                     binaryTree = new BinaryTree(list);
@@ -88,7 +92,7 @@ public class Main {
                     System.out.println("It appears " + ANSI_GREEN + node.getFrequency() + ANSI_RESET
                             + " times in the input text file");
                 } else {
-                    System.out.print(ANSI_RED_BACKGROUND + ANSI_BLACK + "NOT FOUND" + ANSI_RESET + " ");
+                    System.out.print(ANSI_RED_BACKGROUND + ANSI_BLACK + "FAIL" + ANSI_RESET + " ");
                     System.out.println(ANSI_RED + "Word not found!" + ANSI_RESET);
                 }
                 next = null;
@@ -96,7 +100,7 @@ public class Main {
             } else if (step == 2 && next == null) { // Traversal
                 System.out.println("");
                 System.out.print(
-                        "Enter the traversal method " + ANSI_PURPLE + "(1 = IN-ORDER, 2 = PRE-ORDER, 3 = POST-ORDER)"
+                        "Enter the BST traversal method " + ANSI_PURPLE + "(1 = IN-ORDER, 2 = PRE-ORDER, 3 = POST-ORDER)"
                                 + ANSI_RESET + " for " + ANSI_GREEN + file + ANSI_RESET + " ? ");
                 next = next(scan);
 
@@ -115,7 +119,7 @@ public class Main {
                     System.out.print(ANSI_YELLOW_BACKGROUND + ANSI_BLACK + "POST-ORDER" + ANSI_RESET + " ");
                     nodes = binaryTree.postOrder();
                 } else {
-                    System.out.print(ANSI_RED_BACKGROUND + ANSI_BLACK + "INVALID" + ANSI_RESET + " ");
+                    System.out.print(ANSI_RED_BACKGROUND + ANSI_BLACK + "FAIL" + ANSI_RESET + " ");
                     System.out.println(ANSI_RED + "Input value is invalid" + ANSI_RESET);
                     next = null;
                     continue;
