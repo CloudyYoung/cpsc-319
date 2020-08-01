@@ -22,12 +22,10 @@ public class BinaryTree {
             Node current = root;
 
             if (root == null) {
-
                 root = new Node(word);
                 current = root;
 
             } else {
-
                 boolean isPlaced = false;
                 while (!isPlaced) {
 
