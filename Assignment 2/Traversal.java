@@ -59,32 +59,6 @@ public class Traversal {
         this(tree.getRoot(), mode);
     }
 
-    public static void main(String[] args){
-        ArrayList<String> list = new ArrayList<String>();
-        list.add("Something");
-        list.add("Behind");
-        list.add("Us");
-        list.add("Doing");
-        list.add("Great");
-        list.add("Babay");
-        list.add("Babay");
-        list.add("Orders");
-        list.add("Cathy");
-        BinaryTree tree = new BinaryTree(list);
-        System.out.println(tree);
-        System.out.println(tree.postOrder());
-        Traversal trav = new Traversal(tree, Traversal.POST_ORDER);
-        System.out.println(trav.next());
-        System.out.println(trav.next());
-        System.out.println(trav.next());
-        System.out.println(trav.next());
-        System.out.println(trav.next());
-        System.out.println(trav.next());
-        System.out.println(trav.next());
-        System.out.println(trav.next());
-        System.out.println(trav.next());
-    }
-
     /**
      * Inspired by the Python generator, 
      * this method return the next node in the binary tree each time it is invoked, 
