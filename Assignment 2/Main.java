@@ -98,9 +98,9 @@ public class Main {
 
             } else if (step == 2 && next == null) { // Traversal
                 System.out.println("");
-                System.out.print(
-                        "Enter the BST traversal method " + ANSI_PURPLE + "(1 = IN-ORDER, 2 = PRE-ORDER, 3 = POST-ORDER)"
-                                + ANSI_RESET + " for " + ANSI_GREEN + file + ANSI_RESET + " ? ");
+                System.out.print("Enter the BST traversal method " + ANSI_PURPLE
+                        + "(1 = IN-ORDER, 2 = PRE-ORDER, 3 = POST-ORDER)" + ANSI_RESET + " for " + ANSI_GREEN + file
+                        + ANSI_RESET + " ? ");
                 next = next(scan);
 
             } else if (step == 2 && next != null) { // Traversal
@@ -117,7 +117,7 @@ public class Main {
                 } else if (next.equals("3")) {
                     System.out.print(ANSI_YELLOW_BACKGROUND + ANSI_BLACK + "POST-ORDER" + ANSI_RESET + " ");
                     nodes = binaryTree.postOrder();
-                    
+
                 } else {
                     System.out.print(ANSI_RED_BACKGROUND + ANSI_BLACK + "FAIL" + ANSI_RESET + " ");
                     System.out.println(ANSI_RED + "Input value is invalid" + ANSI_RESET);

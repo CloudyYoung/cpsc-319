@@ -6,35 +6,35 @@ public class Node {
     private Node left;
     private Node right;
 
-    public Node(String value){
+    public Node(String value) {
         this.value = value;
         this.frequency = 1;
     }
 
-    public Node(Node node){
+    public Node(Node node) {
         this.value = node.value;
         this.frequency = node.frequency;
         this.left = node.left;
         this.right = node.right;
     }
 
-    public String getValue(){
+    public String getValue() {
         return this.value;
     }
 
-    public int getFrequency(){
+    public int getFrequency() {
         return this.frequency;
     }
 
-    public Node getLeftNode(){
+    public Node getLeftNode() {
         return this.left;
     }
 
-    public Node getRightNode(){
+    public Node getRightNode() {
         return this.right;
     }
 
-    public boolean hasLeftNode(){
+    public boolean hasLeftNode() {
         return this.left != null;
     }
 
@@ -42,20 +42,20 @@ public class Node {
         return this.right != null;
     }
 
-    public void setLeftNode(Node predecessor){
+    public void setLeftNode(Node predecessor) {
         this.left = predecessor;
     }
 
-    public void setRightNode(Node successor){
+    public void setRightNode(Node successor) {
         this.right = successor;
     }
 
-    public void addFrequency(){
-        this.frequency ++;
+    public void addFrequency() {
+        this.frequency++;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.value + " (" + this.frequency + ")";
     }
 
@@ -66,7 +66,7 @@ public class Node {
     /**
      * @reference: https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram
      */
-    private String print(String prepend, boolean right){
+    private String print(String prepend, boolean right) {
         String string = "";
         boolean isStart = prepend.equals("");
         String nextLeftPrepend = (right || isStart) ? "      " : "│     ";
