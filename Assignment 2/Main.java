@@ -9,6 +9,7 @@ public class Main {
 
     /**
      * ANSI colors for sysout printing
+     * 
      * @reference: https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
      */
     public static final String ANSI_RESET = "\u001B[0m";
@@ -30,90 +31,79 @@ public class Main {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         Scanner scan = new Scanner(System.in);
         String next = null;
         String file = "";
         BinaryTree binaryTree = null;
         int step = 0;
-        
-        while(true){
 
-            if(next != null && next.equals("next")){         // If want to continue to next function
-                step ++;
-                next = null;                                // Clear user input
+        while (true) {
 
-            }else if (next != null && next.equals("end")) { // If want to end program
-                break;                                      
+            if (next != null && next.equals("next")) { // If want to continue to next function
+                step++;
+                next = null; // Clear user input
 
-            }else if(step == 0 && next == null){            // Print tree structure and statistics
+            } else if (next != null && next.equals("end")) { // If want to end program
+                break;
+
+            } else if (step == 0 && next == null) { // Print tree structure and statistics
                 System.out.println("");
                 System.out.print("Enter the input file name: ");
                 next = next(scan);
 
-            }else if(step == 0 && next != null){            // Print tree structure and statistics
+            } else if (step == 0 && next != null) { // Print tree structure and statistics
                 ArrayList<String> list = readListFromFile(next);
                 file = next;
-                if(!list.isEmpty()){
+                if (!list.isEmpty()) {
                     binaryTree = new BinaryTree(list);
                     System.out.println(ANSI_YELLOW + binaryTree + ANSI_RESET);
-                    System.out.println(
-                        "Total number of words in "
-                         + ANSI_YELLOW + file + ANSI_RESET
-                         + " = "
-                         + ANSI_YELLOW
-                         + binaryTree.getTotalNodes()       // Prints total words
-                         + ANSI_RESET);
-                    System.out.println(
-                        "Number of unique words in " 
-                         + ANSI_YELLOW + file + ANSI_RESET
-                         + " = "
-                         + ANSI_YELLOW
-                         + binaryTree.getUniqueNodes()      // Prints unique words
-                         + ANSI_RESET);
-                    System.out.println(
-                        "The word(s) which occur(s) most"
-                         + " often and the number of times"
-                         + " that it/they occur(s) = ");
-                    for(Node each : binaryTree.getMostFrequentNodes()){
-                        System.out.println(
-                        "  " 
-                         + ANSI_YELLOW + each.getValue()    // Print most frequent word
-                         + ANSI_RESET + " = "
-                         + ANSI_YELLOW
-                         + each.getFrequency()              // Print its frequency
-                         + ANSI_RESET + " times");
+                    System.out.println("Total number of words in " + ANSI_YELLOW + file + ANSI_RESET + " = "
+                            + ANSI_YELLOW + binaryTree.getTotalNodes() // Prints total words
+                            + ANSI_RESET);
+                    System.out.println("Number of unique words in " + ANSI_YELLOW + file + ANSI_RESET + " = "
+                            + ANSI_YELLOW + binaryTree.getUniqueNodes() // Prints unique words
+                            + ANSI_RESET);
+                    System.out.println("The word(s) which occur(s) most often and the number "
+                            + "of times that it/they occur(s) = ");
+                    for (Node each : binaryTree.getMostFrequentNodes()) {
+                        System.out.println("  " + ANSI_YELLOW + each.getValue() // Print most frequent word
+                                + ANSI_RESET + " = " + ANSI_YELLOW + each.getFrequency() // Print its frequency
+                                + ANSI_RESET + " times");
                     }
-                    step ++;                                // Automatically go to next function
+                    step++; // Automatically go to next function
                 }
-                next = null;                                // Clear user input
+                next = null; // Clear user input
 
-            }else if(step == 1 && next == null){            // Find words
+            } else if (step == 1 && next == null) { // Find words
                 System.out.println("");
                 System.out.print("Enter the word you are looking for in " + ANSI_YELLOW + file + ANSI_RESET + " ? ");
                 next = next(scan);
 
-            } else if (step == 1 && next != null) {         // Find words
+            } else if (step == 1 && next != null) { // Find words
                 Node node = binaryTree.search(next);
-                if(node != null){
+                if (node != null) {
                     System.out.print(ANSI_GREEN_BACKGROUND + ANSI_BLACK + "FOUND" + ANSI_RESET + " ");
-                    System.out.println("It appears " + ANSI_GREEN + node.getFrequency() + ANSI_RESET + " times in the input text file");
-                }else{
+                    System.out.println("It appears " + ANSI_GREEN + node.getFrequency() + ANSI_RESET
+                            + " times in the input text file");
+                } else {
                     System.out.print(ANSI_RED_BACKGROUND + ANSI_BLACK + "NOT FOUND" + ANSI_RESET + " ");
                     System.out.println(ANSI_RED + "Word not found!" + ANSI_RESET);
                 }
                 next = null;
 
-            }else if(step == 2 && next == null){            // Traversal
+            } else if (step == 2 && next == null) { // Traversal
                 System.out.println("");
-                System.out.print("Enter the traversal method " + ANSI_PURPLE + "(1 = IN-ORDER, 2 = PRE-ORDER, 3 = POST-ORDER)" + ANSI_RESET + " for " + ANSI_GREEN + file + ANSI_RESET + " ? ");
+                System.out.print(
+                        "Enter the traversal method " + ANSI_PURPLE + "(1 = IN-ORDER, 2 = PRE-ORDER, 3 = POST-ORDER)"
+                                + ANSI_RESET + " for " + ANSI_GREEN + file + ANSI_RESET + " ? ");
                 next = next(scan);
 
-            } else if (step == 2 && next != null) {         // Traversal
+            } else if (step == 2 && next != null) { // Traversal
 
                 ArrayList<Node> nodes;
-                if(next.equals("1")){
+                if (next.equals("1")) {
                     System.out.print(ANSI_YELLOW_BACKGROUND + ANSI_BLACK + "IN-ORDER" + ANSI_RESET + " ");
                     nodes = binaryTree.inOrder();
 
@@ -121,10 +111,10 @@ public class Main {
                     System.out.print(ANSI_YELLOW_BACKGROUND + ANSI_BLACK + "PRE-ORDER" + ANSI_RESET + " ");
                     nodes = binaryTree.preOrder();
 
-                }else if (next.equals("3")){
+                } else if (next.equals("3")) {
                     System.out.print(ANSI_YELLOW_BACKGROUND + ANSI_BLACK + "POST-ORDER" + ANSI_RESET + " ");
                     nodes = binaryTree.postOrder();
-                }else{
+                } else {
                     System.out.print(ANSI_RED_BACKGROUND + ANSI_BLACK + "INVALID" + ANSI_RESET + " ");
                     System.out.println(ANSI_RED + "Input value is invalid" + ANSI_RESET);
                     next = null;
@@ -134,7 +124,7 @@ public class Main {
                 System.out.print("output: ");
                 System.out.print("" + ANSI_YELLOW + "");
 
-                for(Node node : nodes){
+                for (Node node : nodes) {
                     System.out.print(node.getValue() + " ");
                 }
 
@@ -155,7 +145,7 @@ public class Main {
 
     }
 
-    private static String next(Scanner scan){
+    private static String next(Scanner scan) {
         System.out.print(ANSI_PURPLE + "");
         String next = scan.next();
         System.out.print(ANSI_RESET);
@@ -178,7 +168,7 @@ public class Main {
                 final String line = scanner.nextLine();
                 Pattern reg = Pattern.compile("([A-Za-z']+)"); // Regular expresson to match words
                 Matcher res = reg.matcher(line);
-                while(res.find()){
+                while (res.find()) {
                     list.add(res.group().toLowerCase());
                 }
             }
