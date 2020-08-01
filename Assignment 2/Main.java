@@ -117,6 +117,7 @@ public class Main {
                 } else if (next.equals("3")) {
                     System.out.print(ANSI_YELLOW_BACKGROUND + ANSI_BLACK + "POST-ORDER" + ANSI_RESET + " ");
                     nodes = binaryTree.postOrder();
+                    
                 } else {
                     System.out.print(ANSI_RED_BACKGROUND + ANSI_BLACK + "FAIL" + ANSI_RESET + " ");
                     System.out.println(ANSI_RED + "Input value is invalid" + ANSI_RESET);
