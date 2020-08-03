@@ -82,6 +82,7 @@ public class Traversal {
     /**
      * @param travNode the travNode for recursion
      * @return the next travNode object
+     * @reference: Lecture Powerpoints
      */
     private TravNode next(TravNode travNode) {
 
