@@ -70,7 +70,7 @@ By default, user will be directed to word searching method. User can switch as w
 ```
 ```
 > Enter the word you are looking for in text1 ? !end
-> ENDED Program has ended. Thank you for using!
+> ENDED Program is ended. Thank you for using!
 ```
 
 

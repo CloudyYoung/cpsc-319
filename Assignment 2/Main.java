@@ -145,7 +145,7 @@ public class Main {
 
         System.out.println(ANSI_RESET + "");
         System.out.print(ANSI_CYAN_BACKGROUND + ANSI_BLACK + "ENDED" + ANSI_RESET + " ");
-        System.out.println(ANSI_CYAN + "Program has ended. Thank you for using!" + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "Program is ended. Thank you for using!" + ANSI_RESET);
 
     }
 
