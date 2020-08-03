@@ -33,6 +33,7 @@ For binary tree nodes displayed below, `this (9)` for instance, `this` represent
     this (9)
       │           ┌─── the (2)
       │     ┌─── test (9)
+      │     │     └─── second (3)
       └─── is (9)
             │     ┌─── first (1)
             │     │     │     ┌─── but (1)
