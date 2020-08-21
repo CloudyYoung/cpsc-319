@@ -130,7 +130,7 @@ class DijkstrasAlgorithm {
 			} 
 		} 
 
-		return ret;
+		return ret + "\n";
 	} 
 
 	// Function to print shortest path 
