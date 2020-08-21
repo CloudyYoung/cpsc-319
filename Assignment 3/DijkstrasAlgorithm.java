@@ -108,6 +108,9 @@ class DijkstrasAlgorithm {
 	// A utility function to print 
 	// the constructed distances 
 	// array and shortest paths 
+
+	// Changed return type to String from void
+	// And replace all System.out.println with ret += and return ret
 	private static String printSolution(int startVertex, 
 									int[] distances, 
 									int[] parents) 
@@ -115,7 +118,7 @@ class DijkstrasAlgorithm {
 		String ret = "";
 
 		int nVertices = distances.length; 
-		ret += "Vertex\t Distance\tPath"; 
+		ret += "Vertex\t Distance\tPath"; // Changed to ret +=
 		
 		for (int vertexIndex = 0; 
 				vertexIndex < nVertices; 
@@ -123,10 +126,10 @@ class DijkstrasAlgorithm {
 		{ 
 			if (vertexIndex != startVertex) 
 			{ 
-				ret += "\n" + startVertex + " -> "; 
-				ret += vertexIndex + " \t\t "; 
-				ret += distances[vertexIndex] + "\t\t"; 
-				ret += printPath(vertexIndex, parents); 
+				ret += "\n" + startVertex + " -> "; // Changed to ret += 
+				ret += vertexIndex + " \t\t "; // Changed to ret +=
+				ret += distances[vertexIndex] + "\t\t"; // Changed to ret +=
+				ret += printPath(vertexIndex, parents); // Changed to ret +=
 			} 
 		} 
 
@@ -136,6 +139,9 @@ class DijkstrasAlgorithm {
 	// Function to print shortest path 
 	// from source to currentVertex 
 	// using parents array 
+
+	// Changed return type to String from void
+	// And replace all System.out.println with return
 	private static String printPath(int currentVertex, 
 								int[] parents) 
 	{ 
@@ -144,9 +150,9 @@ class DijkstrasAlgorithm {
 		// been processed 
 		if (currentVertex == NO_PARENT) 
 		{ 
-			return ""; 
+			return ""; // Changed to return
 		} 
-		return printPath(parents[currentVertex], parents) + currentVertex + " "; 
+		return printPath(parents[currentVertex], parents) + currentVertex + " "; // Changed to return
 	} 
 
 	// Driver Code 

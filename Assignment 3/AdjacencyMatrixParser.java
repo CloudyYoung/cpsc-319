@@ -1,7 +1,12 @@
 import java.util.ArrayList;
 
+// Added class
 public class AdjacencyMatrixParser {
     
+    /**
+     * @param fileName the name of the file
+     * @return the adjacency matrix in 2-d integer array
+     */
     public static int[][] parseFile(String fileName){
 
         ArrayList<String> lines = FileIO.readFile(fileName + ".txt");
@@ -37,6 +42,10 @@ public class AdjacencyMatrixParser {
         return list;
     }
 
+    /**
+     * @param fileName the name of the file
+     * @param content the content to write the file
+     */
     public static void writeFile(String fileName, String content){
         FileIO.writeFile(fileName + "_dijkstra_output.txt", content);
     }
